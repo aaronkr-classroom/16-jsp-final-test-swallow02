@@ -26,7 +26,49 @@
     <!-- JS 파일에 대한 script테그를 수정하십시오 -->
     <script defer src="${pageContext.request.contextPath}/public/js/functions.js"></script>
   </head>
-
+<script type="text/javascript">
+  function checkMember(){
+	  var regExpId = /^[a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+		var regExpName = /^[가-힣]*$/;
+		var regExpPasswd = /^[0-9]*$/;
+		var regExpPhone = /^\d{3}-\d{3,4}-\d{4}$/;
+		var regExpEmail =/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		var form = document.Member;
+		var name = form.name.value;
+		var passwd = form.password.value;
+		var phone = form.phone.value
+		var email = form.email.value;
+		int i = 0;
+		if (!regExpName.test(name)) {
+			alert("이름은 한글만으로 입력해 주세요!");
+			i = 1;
+			return false;
+		}
+		if (!regExpPasswd.test(passwd)) {
+			alert("비밀번호는 숫자만으로 입력해 주세요!");
+			i = 1;
+			return false;
+		}
+		if (!regExpPhone.test(phone)) {
+			alert("연락처 입력을 확인해 주세요!");
+			i = 1;
+			return false;
+		}
+		if (!regExpEmail.test(email)) {
+			alert("이메일 입력을 확인해 주세요!");
+			i = 1;
+			return false;
+		}
+		
+		if(i== 0){
+		
+			response.sendRedirect("./thanks.jsp");
+		}
+		form.submit();
+		
+		
+  }
+</script>
   <body>
     <!-- HEADER -->
 
@@ -51,18 +93,21 @@
             <!-- action 속성에서 맞는 파일 경로 입력하세요 -->
             <form
               class="p-4 p-md-5 border rounded-3 bg-light"
-              action="./thanks.jsp"
+              action= "./thanks.jsp"
               method="POST"
+              name="Member"
             >
               <div class="form-floating mb-3">
                 <input
                   type="text"
                   class="form-control"
                   id="floatingName"
+                  name="name"
                   placeholder="Name"
                 />
                 <label for="floatingName">Name</label>
               </div>
+              
 
               <div class="form-floating mb-3">
                 <input
@@ -114,9 +159,10 @@
                 </div>
               </div>
 
-              <button class="w-100 btn btn-lg btn-primary ut-red" type="submit">
+              <button class="w-100 btn btn-lg btn-primary ut-red" type="submit" onclick="checkMember()">
                 Submit
               </button>
+             
               <hr />
             </form>
 

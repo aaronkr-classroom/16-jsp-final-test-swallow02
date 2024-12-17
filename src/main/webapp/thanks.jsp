@@ -31,7 +31,6 @@
     <!-- HEADER -->
 
     <jsp:include page="header.jsp"></jsp:include>
-
     <!-- MAIN 페이지 내용 -->
     <main class="">
       <div class="container col-xl-10 col-xxl-8 px-4 py-5">
